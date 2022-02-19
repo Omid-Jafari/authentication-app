@@ -1,7 +1,7 @@
-import React from 'react';
+import { useContext } from 'react';
+import AuthContext from "./context/AuthProvider";
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { AuthProvider } from "./context/AuthProvider";
 import Button from './component/Button'
 
 const Wrapper = styled.div`
@@ -32,14 +32,15 @@ const Content = styled.div`
 `;
 
 const Navbar = () => {
+    const { auth, setAuth } = useContext(AuthContext);
 
     return (
         <Wrapper>
             <Content>
                 <ul>
                     <li><a href='#'>Logo Here</a></li>
-                    {AuthProvider.auth
-                    ? <Button onClick={() => AuthProvider.setAuth({})}>log out</Button>
+                    {auth
+                    ? <Button onClick={() => setAuth('')}>log out {auth.user}</Button>
                     : <li><Link to='/login'>Login to site</Link></li>} 
                 </ul>
             </Content>
